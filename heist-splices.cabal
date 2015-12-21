@@ -16,15 +16,19 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 library
-  exposed-modules: Heist.Splices.Common
+  exposed-modules:
+    Heist.Splices.Common,
+    Heist.Splices.Session
   -- other-modules:
   -- other-extensions:
   build-depends:
     base >=4.6 && <4.8,
     -- too busy to test just how low we can go here on the lower bounds
     heist >= 0.13 && < 0.15,
+    snap,
     text,
-    split
+    split,
+    transformers
 
   -- hs-source-dirs:
   default-language:    Haskell2010
