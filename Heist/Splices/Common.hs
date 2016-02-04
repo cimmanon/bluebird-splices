@@ -18,25 +18,14 @@ import Heist.SpliceAPI
 --import qualified Text.XmlHtml as X hiding (render)
 import Data.List.Split (chunksOf)
 
+import Heist.Splices.Types
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Generic Splices
 }----------------------------------------------------------------------------------------------------}
 
-stringSplice :: (Monad m) => String -> Splice m
-stringSplice = textSplice . T.pack
-
-showSplice :: (Monad m, Show a) => a -> Splice m
-showSplice = stringSplice . show
-
-numericSplice :: (Num a, Show a, Monad m) => a -> Splice m
-numericSplice = stringSplice . show
-
 listToSplice :: Monad m => (a -> Splices (Splice m)) -> [a] -> Splice m
 listToSplice splice = mapSplices (runChildrenWith . splice)
-
-listSplice :: Monad m => Text -> [Text] -> Splice m
-listSplice tag = mapSplices (\ x -> runChildrenWith $ tag ## textSplice x)
 
 rowspanSplice :: (Monad m, Eq a) => Splices (Splice m) -> (a -> Splices (Splice m)) -> [a] -> Splice m
 rowspanSplice spanSplices rowSplices xs = listToSplice splices xs
