@@ -4,11 +4,11 @@ module Heist.Splices.BlueBird.Visibility where
 
 ------------------------------------------------------------------------------
 
+import Data.Map.Syntax
 import Data.Maybe
 import Data.Text (Text)
 import qualified Data.Text as T
 import Heist.Interpreted
-import Heist.SpliceAPI
 import Data.List.Split (chunksOf)
 
 import Heist.Splices.BlueBird.Types

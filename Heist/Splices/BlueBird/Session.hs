@@ -4,9 +4,9 @@ module Heist.Splices.BlueBird.Session where
 
 ----------------------------------------------------------------------
 
+import Data.Maybe (fromMaybe, isJust)
 import qualified Data.Text as T
 import Heist.Interpreted
-import Heist.SpliceAPI
 
 -- for Session stuff
 import Control.Monad.Trans.Class (MonadTrans, lift)
@@ -14,8 +14,6 @@ import Snap.Core
 import Snap.Snaplet (SnapletLens, Handler, withTop)
 import Snap.Snaplet.Session (SessionManager, getFromSession)
 import Snap.Snaplet.Heist (SnapletISplice)
-
-import Data.Maybe (fromMaybe, isJust)
 
 import Heist.Splices.BlueBird.Visibility
 
