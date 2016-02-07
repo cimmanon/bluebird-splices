@@ -1,29 +1,21 @@
-{-# LANGUAGE OverloadedStrings, TypeOperators, ScopedTypeVariables #-}
--- TODO: move some of this to a general purpose library
+{-# LANGUAGE OverloadedStrings #-}
 
-module Heist.Splices.Types where
+module Heist.Splices.BlueBird.Types where
 
 ------------------------------------------------------------------------------
 
---import Control.Monad.Trans (MonadIO)
---import Data.ByteString (ByteString)
---import Data.Int
 import Data.Maybe
 import Data.Text (Text)
 import qualified Data.Text as T
---import Data.Monoid ((<>))
 import Heist (getParamNode)
 import Heist.Interpreted
 import Heist.SpliceAPI
 import qualified Text.XmlHtml as X hiding (render)
 import Data.List.Split (chunksOf)
-import Heist (getParamNode)
 
 -- for dates
 import Data.Time.Format
 import System.Locale
-import Data.Time.Calendar
-import Data.Time.Clock
 
 ------------------------------------------------------------------------------
 

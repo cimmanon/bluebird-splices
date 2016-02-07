@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Heist.Splices.Session where
+module Heist.Splices.BlueBird.Session where
 
 ----------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ import Snap.Snaplet.Heist (SnapletISplice)
 
 import Data.Maybe (fromMaybe, isJust)
 
-import Heist.Splices.Common
+import Heist.Splices.BlueBird.Visibility
 
 ----------------------------------------------------------------------
 
