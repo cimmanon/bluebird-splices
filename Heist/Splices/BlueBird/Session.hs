@@ -4,7 +4,7 @@ module Heist.Splices.BlueBird.Session where
 
 ----------------------------------------------------------------------
 
-import Data.Maybe (fromMaybe, isJust)
+import Data.Maybe (isJust)
 import qualified Data.Text as T
 import Heist.Interpreted
 
@@ -23,11 +23,7 @@ getFromSession' :: MonadTrans t => SnapletLens b SessionManager -> T.Text -> t (
 getFromSession' sess = lift . withTop sess . getFromSession
 
 sessionInfoSplice :: SnapletLens b SessionManager -> T.Text -> SnapletISplice b
-sessionInfoSplice sess key = do
-	val <- getFromSession' sess key
-	textSplice $ fromMaybe "" val
+sessionInfoSplice sess key = maybeSplice textSplice =<< getFromSession' sess key
 
 sessionHasSplice :: SnapletLens b SessionManager -> T.Text -> SnapletISplice b
-sessionHasSplice sess key = do
-	val <- getFromSession' sess key
-	ifSplice' (isJust val)
+sessionHasSplice sess key = ifSplice' . isJust =<< getFromSession' sess key
