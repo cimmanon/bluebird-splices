@@ -45,7 +45,7 @@ ifSplice x a b = runChildrenWith $ do
 ifSplice' :: Monad m => Bool -> Splice m
 ifSplice' x = ifSplice x showContents showContents
 
-{-# DEPRECATED hasSplice "I'm expecting to remove this function soon(tm)" #-}
+{-# DEPRECATED hasSplice, eitherTextSplice "I'm expecting to remove this function soon(tm)" #-}
 -- do we even use this splice?
 hasSplice :: Monad m => Maybe a -> Splice m
 hasSplice = maybeSplice (const showContents)
