@@ -5,13 +5,13 @@ module Heist.Splices.BlueBird.Types where
 ------------------------------------------------------------------------------
 
 import Data.Map.Syntax
-import Data.Maybe
 import Data.Text (Text)
 import qualified Data.Text as T
-import Heist (getParamNode)
 import Heist.Interpreted
+
+-- for examining the Nodes
+import Heist (getParamNode)
 import qualified Text.XmlHtml as X hiding (render)
-import Data.List.Split (chunksOf)
 
 -- for dates
 import Data.Time.Format
