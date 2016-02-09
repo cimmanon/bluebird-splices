@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Heist.Splices.BlueBird.Session where
+module Heist.Splices.Camellia.Session where
 
 ----------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ import Snap.Snaplet (SnapletLens, Handler, withTop)
 import Snap.Snaplet.Session (SessionManager, getFromSession)
 import Snap.Snaplet.Heist (SnapletISplice)
 
-import Heist.Splices.BlueBird.Visibility
+import Heist.Splices.Camellia.Visibility
 
 ----------------------------------------------------------------------
 

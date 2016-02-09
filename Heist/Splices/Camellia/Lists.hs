@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Heist.Splices.BlueBird.Lists where
+module Heist.Splices.Camellia.Lists where
 
 ------------------------------------------------------------------------------
 
@@ -11,8 +11,8 @@ import Heist.Interpreted
 
 import Data.List.Split (chunksOf)
 
-import Heist.Splices.BlueBird.Types
-import Heist.Splices.BlueBird.Visibility
+import Heist.Splices.Camellia.Types
+import Heist.Splices.Camellia.Visibility
 
 ------------------------------------------------------------------------------
 

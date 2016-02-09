@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Heist.Splices.BlueBird.Types where
+module Heist.Splices.Camellia.Types where
 
 ------------------------------------------------------------------------------
 

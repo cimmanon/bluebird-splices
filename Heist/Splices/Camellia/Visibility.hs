@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Heist.Splices.BlueBird.Visibility where
+module Heist.Splices.Camellia.Visibility where
 
 ------------------------------------------------------------------------------
 
@@ -9,7 +9,7 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import Heist.Interpreted
 
-import Heist.Splices.BlueBird.Types
+import Heist.Splices.Camellia.Types
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Base Splices
