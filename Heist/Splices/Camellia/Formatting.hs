@@ -45,8 +45,7 @@ prettyNumberSplice i =
 	let
 		(whole, decimal) = break (== '.') $ show i
 		commaWhole = reverse $ intercalate "," $ chunksOf 3 $ reverse whole
-		dotHalf = if not (null decimal) then '.' : decimal else []
-	in stringSplice $ commaWhole <> dotHalf
+	in stringSplice $ commaWhole <> decimal
 
 -- runs the provided Text through a Markdown parser
 markdownSplice :: Monad m => T.Text -> Splice m
