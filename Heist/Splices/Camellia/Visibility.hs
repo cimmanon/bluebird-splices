@@ -23,12 +23,16 @@ showContents = runChildren
 
 ------------------------------------------------------------------------------
 
+{-# DEPRECATED eitherSplice "eitherSplice has been renamed to toggleSpliceWith, and will be removed in a later version" #-}
 eitherSplice :: Monad m => Bool -> Splice m -> Splice m -> Splice m
-eitherSplice True a _ = a
-eitherSplice False _ b = b
+eitherSplice = toggleSpliceWith
+
+toggleSpliceWith :: Monad m => Bool -> Splice m -> Splice m -> Splice m
+toggleSpliceWith True a _ = a
+toggleSpliceWith False _ b = b
 
 toggleSplice :: Monad m => Bool -> Splice m
-toggleSplice x = eitherSplice x showContents hideContents
+toggleSplice x = toggleSpliceWith x showContents hideContents
 
 maybeSplice :: Monad m => (a -> Splice m) -> Maybe a -> Splice m
 maybeSplice = maybe hideContents
@@ -37,13 +41,17 @@ maybeSplice = maybe hideContents
                                                                       | Splices with extra elements
 }----------------------------------------------------------------------------------------------------}
 
-ifSplice :: Monad m => Bool -> Splice m -> Splice m -> Splice m
-ifSplice x a b = runChildrenWith $ do
-	"yes" ## eitherSplice x a hideContents
-	"no" ## eitherSplice x hideContents b
+ifSpliceWith :: Monad m => Bool -> Splice m -> Splice m -> Splice m
+ifSpliceWith x a b = runChildrenWith $ do
+	"yes" ## toggleSpliceWith x a hideContents
+	"no" ## toggleSpliceWith x hideContents b
 
+ifSplice :: Monad m => Bool -> Splice m
+ifSplice x = ifSpliceWith x showContents showContents
+
+{-# DEPRECATED ifSplice' "ifSplice' has been renamed to ifSplice, the original ifSplice was renamed to ifSpliceWith" #-}
 ifSplice' :: Monad m => Bool -> Splice m
-ifSplice' x = ifSplice x showContents showContents
+ifSplice' = ifSplice
 
 {-# DEPRECATED hasSplice, eitherTextSplice "I'm expecting to remove this function soon(tm)" #-}
 -- do we even use this splice?
