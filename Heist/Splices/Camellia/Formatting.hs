@@ -6,7 +6,7 @@ module Heist.Splices.Camellia.Formatting where
 
 import Data.Map.Syntax
 import Data.Text (Text)
-import Data.List (intercalate)
+import Data.List (intercalate, span)
 import Data.List.Split (chunksOf)
 import Data.Monoid ((<>))
 import qualified Data.Text as T
@@ -50,4 +50,29 @@ prettyNumberSplice i =
 -- runs the provided Text through a Markdown parser
 markdownSplice :: Monad m => T.Text -> Splice m
 markdownSplice =
-	return . renderHtmlNodes . markdown defaultMarkdownSettings { msXssProtect = False } . T.fromStrict
+	return . fixListNodes . renderHtmlNodes . markdown defaultMarkdownSettings { msXssProtect = False } . T.fromStrict
+
+-- This function is a pretty janky fix, but it's the best I can do at the moment.
+-- see https://github.com/snoyberg/markdown/issues/36
+fixListNodes :: [X.Node] -> [X.Node]
+fixListNodes xs =
+	let
+		(cleanNodes, hasList) = span (`notElem` [X.TextNode "<ol>", X.TextNode "<ul>"]) xs
+	in
+		map fixElement cleanNodes ++ reformatList hasList
+	where
+		reformatList [] = []
+		reformatList (X.TextNode tag : ys) =
+			let
+				(listItems, rest) = span isListItem ys
+				tagName = T.dropAround (`elem` "<>") tag
+			in
+				X.Element tagName [] (map fixElement listItems) : fixListNodes (dropWhile (`elem` [X.TextNode "</ol>", X.TextNode "</ul>"]) rest)
+		reformatList ys = ys
+		-- ^ this last case shouldn't be possible to get to
+
+		isListItem (X.Element "li" _ _) = True
+		isListItem _ = False
+
+		fixElement x@(X.Element{}) = x {X.elementChildren = fixListNodes $ X.childNodes x}
+		fixElement x = x
