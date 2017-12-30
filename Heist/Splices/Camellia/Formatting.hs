@@ -67,7 +67,7 @@ fixListNodes xs =
 		reformatList (X.TextNode tag : ys) =
 			let
 				(listItems, rest) = span isListItem ys
-				tagName = T.dropAround (`elem` "<>") tag
+				tagName = T.dropAround (`elem` ['<', '>']) tag
 			in
 				X.Element tagName [] (map fixElement listItems) : fixListNodes (dropWhile (`elem` [X.TextNode "</ol>", X.TextNode "</ul>"]) rest)
 		reformatList ys = ys
