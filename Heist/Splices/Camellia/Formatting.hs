@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, CPP #-}
 
 module Heist.Splices.Camellia.Formatting where
 
@@ -18,7 +18,9 @@ import qualified Text.XmlHtml as X hiding (render)
 
 -- for dates
 import Data.Time.Format
-import System.Locale
+#if !MIN_VERSION_time(1,5,0)
+import System.Locale (TimeLocale)
+#endif
 
 -- for Markdown
 import qualified Data.Text.Lazy as T (fromStrict)
