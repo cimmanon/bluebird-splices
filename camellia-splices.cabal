@@ -26,7 +26,7 @@ library
   -- other-modules:
   -- other-extensions:
   build-depends:
-    base >=4.6 && <4.8,
+    base >=4.6 && <4.9,
     -- too busy to test just how low we can go here on the lower bounds
     heist >= 0.13 && < 0.15,
     snap,
