@@ -28,8 +28,11 @@ readFromSession = fmap (readMay <=< fmap T.unpack) . getFromSession
 inSession :: T.Text -> Handler b SessionManager Bool
 inSession = fmap isJust . getFromSession
 
+liftS :: MonadTrans t => SnapletLens b SessionManager -> Handler b SessionManager a -> t (Handler b v) a
+liftS sess h = lift $ withTop sess h
+
 liftFromSession :: MonadTrans t => SnapletLens b SessionManager -> T.Text -> t (Handler b v) (Maybe T.Text)
-liftFromSession sess = lift . withTop sess . getFromSession
+liftFromSession sess = liftS sess . getFromSession
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Splices
@@ -39,7 +42,7 @@ sessionTextSplice :: SnapletLens b SessionManager -> T.Text -> SnapletISplice b
 sessionTextSplice sess key = maybeSplice textSplice =<< liftFromSession sess key
 
 sessionIfSplice :: SnapletLens b SessionManager -> T.Text -> SnapletISplice b
-sessionIfSplice sess key = ifSplice =<< lift (withTop sess $ inSession key)
+sessionIfSplice sess key = ifSplice =<< liftS sess (inSession key)
 
 {-# DEPRECATED getFromSession' "Deprecated in favor of liftFromSession" #-}
 getFromSession' :: MonadTrans t => SnapletLens b SessionManager -> T.Text -> t (Handler b v) (Maybe T.Text)
